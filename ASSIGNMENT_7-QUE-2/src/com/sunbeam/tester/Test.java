@@ -7,8 +7,8 @@ import com.sunbeam.Players;
 public class Test {
 
 	public static void main(String[] args) {
-	Player []arr=new Player[2];
-	for(int i=0;i<2;i++) {
+	Player []arr=new Player[11];
+	for(int i=0;i<11;i++) {
 		arr[i]=new Cricketer();
 	arr[i].accept();
 
