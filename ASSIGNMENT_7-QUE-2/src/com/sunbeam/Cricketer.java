@@ -9,11 +9,17 @@ int wickets;
 public Cricketer() {
 	
 }
-public Cricketer(int runs, int wickets) {
-	
-	this.runs = runs;
-	this.wickets = wickets;
+
+
+
+public Cricketer(int id, String name, int age, int matchesPlyaed,int runs,int wickets) {
+	super(id, name, age, matchesPlyaed);
+	this.runs=runs;
+	this.wickets=wickets;
 }
+
+
+
 @Override
 	public void accept() {
 		super.accept();
@@ -29,30 +35,43 @@ public Cricketer(int runs, int wickets) {
 		System.out.println("Runs :"+runs);
 		System.out.println("Wickets :"+wickets);
 	}
+
+public void setRuns(int runs) {
+	this.runs = runs;
+}
+
+
+
+public void setWickets(int wickets) {
+	this.wickets = wickets;
+}
+
+
+
 @Override
 public int getWickets() {
 	
-	return 0;
+	return wickets;
 }
 @Override
 public double getEcconomy() {
 	
-	return 0;
+	return runs/wickets;
 }
 @Override
 public int getRuns() {
 	
-	return 0;
+	return runs;
 }
 @Override
 public double getAverage() {
 	
-	return 0;
+	return runs/matchesPlyaed;
 }
 @Override
 public double getStrikeRate() {
 	
-	return 0;
+	return (runs/matchesPlyaed)*100;
 }
 @Override
 	public String toString() {

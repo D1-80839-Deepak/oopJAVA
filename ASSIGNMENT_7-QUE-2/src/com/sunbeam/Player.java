@@ -13,7 +13,6 @@ abstract public class Player {
 	}
 
 	public Player(int id, String name, int age, int matchesPlyaed) {
-		super();
 		this.id = id;
 		this.name = name;
 		this.age = age;
@@ -24,32 +23,16 @@ abstract public class Player {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public String getName() {
 		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public int getAge() {
 		return age;
 	}
 
-	public void setAge(int age) {
-		this.age = age;
-	}
-
 	public int getMatchesPlyaed() {
 		return matchesPlyaed;
-	}
-
-	public void setMatchesPlyaed(int matchesPlyaed) {
-		this.matchesPlyaed = matchesPlyaed;
 	}
 
 	public void accept() {
@@ -64,12 +47,13 @@ abstract public class Player {
 		matchesPlyaed = sc.nextInt();
 
 	}
+
 	public void display() {
-		System.out.println("Id :"+id);
-		System.out.println("Name :"+name);
-		System.out.println("Age :"+age);
-		System.out.println("Match Played :"+matchesPlyaed);
-		
+		System.out.println("Id :" + id);
+		System.out.println("Name :" + name);
+		System.out.println("Age :" + age);
+		System.out.println("Match Played :" + matchesPlyaed);
+
 	}
 
 	@Override
