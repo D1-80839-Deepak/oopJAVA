@@ -1,22 +1,23 @@
 package com.sunbeam;
 
+import java.util.Comparator;
 import java.util.Scanner;
 
-public class Book {
-	String isbn;
-	double price;
-	String authorName;
-	int quantity;
-
+public class Book implements Comparable<Book>{
+	private String isbn;
+	private double price;
+	private String authorName;
+	private int quantity;
+	
+	Scanner sc = new Scanner(System.in);
+	
 	public Book() {
 	}
-	
 
-	public Book(String isbn) {
-		this.isbn = isbn;
+	public Book(String isbn)
+	{
+		this.isbn=isbn;
 	}
-
-
 	public Book(String isbn, double price, String authorName, int quantity) {
 		this.isbn = isbn;
 		this.price = price;
@@ -24,25 +25,25 @@ public class Book {
 		this.quantity = quantity;
 	}
 
+	public void accept() {
+		
+		System.out.println();
+		System.out.println("--------------------------------------------");
+		System.out.println();
+		
+		System.out.print("Enter ISBN Number - ");
+		isbn = sc.next();
+		System.out.print("Enter Book Price - ");
+		price = sc.nextInt();
+		System.out.print("Enter Author Name - ");
+		authorName = sc.next();
+		System.out.print("Enter Quantity - ");
+		quantity = sc.nextInt();
+	}
+	
 	public String getIsbn() {
 		return isbn;
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if(obj!=null)
-		{
-			if(obj instanceof Book)
-			{
-				Book other=(Book)obj;
-				if(this.isbn.equals(other.isbn))
-					return true;
-				return false;
-			}
-		}
-		return false;
-	}
-
 
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
@@ -71,30 +72,34 @@ public class Book {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-
-	public void accept() {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("enter isbn :");
-		isbn = sc.next();
-		System.out.println("enter price :");
-		price = sc.nextDouble();
-		System.out.println("enter Author Name :");
-		authorName = sc.next();
-		System.out.println("enter Quantity :");
-		quantity = sc.nextInt();
-
-	}
-
-	public void display() {
-		System.out.println("isbn :" + isbn);
-		System.out.println("price :" + price);
-		System.out.println("Author Name :" + authorName);
-		System.out.println("Quantity :" + quantity);
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null) {
+			return false;
+		}
+		if(this == obj) {
+			return true;
+		}
+		if(obj instanceof Book) {
+			Book book = (Book)obj;
+			if(this.isbn.equals(book.isbn)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
 	public String toString() {
-		return super.toString();
+		return "Book [isbn=" + isbn + ", price=" + price + ", authorName=" + authorName + ", quantity=" + quantity
+				+ "]";
+	}
+
+	@Override
+	public int compareTo(Book b) {
+		int diff = this.getIsbn().compareTo(b.getIsbn());
+		return diff;
 	}
 	
 }

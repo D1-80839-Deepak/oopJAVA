@@ -1,94 +1,149 @@
 package com.sunbeam;
 
 import java.util.ArrayList;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
+
+
+import com.sunbeam.Book;
+import com.sunbeam.sorting.SortByPriceDesc;
 
 public class Main {
 
 	public static void main(String[] args) {
-		int flag=0;
 
 		Scanner sc = new Scanner(System.in);
-		int choice;
-		List<Book> list = new ArrayList<Book>();
-		do {
-			System.out.println("0.Exit");
-			System.out.println("1.Add new book in List");
-			System.out.println("2.Display all books in forward order using random access");
-			System.out.println("3.Search a book with given isbn");
-			System.out.println("4.Delete a book at given index.");
-			System.out.println("5.Delete a book with given isbn.");
-			System.out.println("6.Delete a book with given name.");
-			System.out.println("7.Sort books by isbn in asc order");
-			System.out.println("8.Sort books by price in desc order");
-			System.out.println("9.Reverse the list");
 
-			System.out.println("enter your choice");
+		int choice;
+		List<Book> book = new ArrayList<Book>();
+
+		Iterator<Book> itr = null;
+		int flag = 0;
+		do {
+			System.out.println();
+			System.out.println("--------------------------------------------");
+			System.out.println();
+			System.out.println("1. Add new Book");
+			System.out.println("2. Display all books in forward order.");
+			System.out.println("3. Search a Book with given ISBN Number");
+			System.out.println("4. Delete a Book of Given Index");
+			System.out.println("5. Delete a Book with Given ISBN number");
+			System.out.println("6. Delete the Book given Name");
+			System.out.println("7. Sort a Book by ISBN in Asending");
+			System.out.println("8. Sort a Book by Price in desending order");
+			System.out.println("9. Reverse the List");
+			System.out.println("0. Exit");
+			System.out.println();
+			System.out.print("Enter option - ");
 			choice = sc.nextInt();
 
 			switch (choice) {
 			case 1:
-				Book book1 = new Book();
-				book1.accept();
-
-				if (list.contains(book1)) {
-					int i = list.indexOf(book1);
-					list.get(i).setQuantity(list.get(i).getQuantity() + book1.quantity);
-				} else {
-					list.add(book1);
+				Book b1 = new Book();
+				b1.accept();
+				flag = 0;
+				String st = b1.getIsbn();
+				for(int i = 0; i < book.size(); i++) {
+					Book bb = book.get(i);
+					if(bb.getIsbn().equals(st)) {
+						bb.setQuantity(book.get(i).getQuantity() + b1.getQuantity());
+						flag = 1;
+					}
 				}
-
+				if(flag != 1) {
+					book.add(b1);
+				}
 				break;
+
 			case 2:
-				for (int i = 0; i < list.size(); i++)
-					list.get(i).display();
+				for(int i = 0; i < book.size(); i++) {
+					Book b = book.get(i);
+					System.out.println(b.toString());
+				}
 				break;
+
 			case 3:
-				System.out.println("enter isbn");
-				String isbn = sc.next();
-				for (int i = 0; i < list.size(); i++) {
-					Book bb = list.get(i);
-					if (isbn.equals(bb.isbn))
-						list.get(i).display();
-					flag=1;
-					
+				System.out.print("Enter ISBN Number - ");
+				String str1 = sc.next();
+				flag = 0;
+				for(int i = 0; i < book.size(); i++) {
+					Book b2 = book.get(i);
+					if(b2.getIsbn().equals(str1)) {
+						int id = book.indexOf(b2);
+						System.out.println(book.get(id).toString());
+//						System.out.println(b1.toString());
+						flag = 1;
+					}
 				}
-				if(flag!=1)
-				System.out.println("Book not found");
+				if(flag != 1) {
+					System.out.println("Sorry..... Book not found");
+				}
 				break;
+
 			case 4:
-				System.out.println("enter index to delete");
-				int index=sc.nextInt();
-				list.remove(index);
-				break;
-			case 5:
-				System.out.println("enter isbn to delete");
-				String isbn1=sc.next();
-				for (int i = 0; i < list.size(); i++) {
-				Book bbb=list.get(i);
-			
-					if(isbn1.equals(bbb.isbn))
+				System.out.print("Enter Book Index - ");
+				int bookin = sc.nextInt();
+				if(bookin < book.size()) {
+					book.remove(bookin);
 				}
 				break;
+
+			case 5:
+				System.out.print("Enter ISBN Number - ");
+				String isbn = sc.next();
+
+				Book b=new Book(isbn);
+					if(book.contains(b))
+					{
+						int index=book.indexOf(b);
+						book.remove(book.get(index));
+					}
+				break;
+
 			case 6:
-
+				System.out.print("Enter Book Name - ");
+				String name = sc.next();
+				itr = book.iterator();
+				for(int i = 0; i < book.size(); i++) {
+					Book b4 = book.get(i);
+					if(b4.getAuthorName().equals(name)) {
+						book.remove(b4);
+					}
+				}
 				break;
+				
 			case 7:
-
+				Collections.sort(book);
+				System.out.println("After Sorting in Ascending - ");
+				System.err.println(book.toString());
 				break;
+				
+				
 			case 8:
-
+				Collections.sort(book, new SortByPriceDesc());
+				System.out.println("-----After Sorting In desending-----");
+				System.out.println(book.toString());
 				break;
+				
 			case 9:
+				Collections.reverse(book);
+				System.out.println("-----After Reverse-----");
+				System.out.println(book.toString());
 
 				break;
 
 			default:
 				break;
 			}
+
 		} while (choice != 0);
+
 	}
 
 }
