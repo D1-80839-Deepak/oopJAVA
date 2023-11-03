@@ -43,17 +43,17 @@ public class Tester {
 				Arrays.sort(student, new SortStudent());
 				
 				for(Student arr : student) {
-					if(arr != null) {
+//					if(arr != null) {
 					System.out.println(arr);
 					}
-				}
+				
 				break;
 
 			default:
 				break;
 			}
 			
-		}while (choice != 0);
+		}while (choice != 3);
 	}
 
 }
