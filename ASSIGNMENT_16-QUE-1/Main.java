@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Scanner;
 
 
-import com.sunbeam.library.*;
+import com.sunbeam.library.Book;
 import com.sunbeam.sorting.SortByPriceDesc;
 
 public class Main {
@@ -45,6 +45,7 @@ public class Main {
 			System.out.println("9. Reverse the List");
 			System.out.println("10. Save book in file");
 			System.out.println("11. Load book from file");
+		
 			System.out.println("0. Exit");
 			System.out.println();
 			System.out.print("Enter option - ");
@@ -89,7 +90,7 @@ public class Main {
 					}
 				}
 				if(flag != 1) {
-					System.out.println("Sorry..... Book not found");
+					System.out.println(" Book not found");
 				}
 				break;
 
@@ -134,13 +135,13 @@ public class Main {
 				
 			case 8:
 				Collections.sort(book, new SortByPriceDesc());
-				System.out.println("-----After Sorting In desending-----");
+				System.out.println("After Sorting In desending");
 				System.out.println(book.toString());
 				break;
 				
 			case 9:
 				Collections.reverse(book);
-				System.out.println("-----After Reverse-----");
+				System.out.println("After Reverse");
 				System.out.println(book.toString());
 
 				break;
@@ -157,7 +158,7 @@ public class Main {
 				}catch(Exception e) {
 					e.printStackTrace();
 				}
-				System.out.println("-----Book Saved to file-----");
+				System.out.println("Book Saved to file");
 				break;
 				
 			case 11:

@@ -1,22 +1,21 @@
+
 package com.sunbeam.main;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
 
-import com.sunbeam.library.*;
+import com.sunbeam.library.Book;
 import com.sunbeam.sorting.SortByPriceDesc;
 
 public class Main {
@@ -53,7 +52,7 @@ public class Main {
 			switch (choice) {
 			case 1:
 				Book b1 = new Book();
-				b1.accept();
+				b1.acceptData();
 				flag = 0;
 				String st = b1.getIsbn();
 				for(int i = 0; i < book.size(); i++) {
@@ -104,7 +103,12 @@ public class Main {
 			case 5:
 				System.out.print("Enter ISBN Number - ");
 				String isbn = sc.next();
-
+//				for(int i = 0; i < book.size(); i++) {
+//					Book b3 = book.get(i);
+//					if(b3.getIsbn().equals(isbn)) {
+//						book.remove(b3);
+//					}
+//				}
 				Book b=new Book(isbn);
 					if(book.contains(b))
 					{
@@ -144,44 +148,34 @@ public class Main {
 				System.out.println(book.toString());
 
 				break;
+				
 			case 10:
 				Book book3 = new Book();
-				book3.accept();
+				book3.acceptData();
+				book.add(book3);
 				try(FileOutputStream fos = new FileOutputStream("book.bin")){
-					try(DataOutputStream dos = new DataOutputStream(fos)){
-						dos.writeUTF(book3.getIsbn());
-						dos.writeUTF(book3.getAuthorName());
-						dos.writeDouble(book3.getPrice());
-						dos.writeInt(book3.getQuantity());
+					try(ObjectOutputStream oos = new ObjectOutputStream(fos)){
+						oos.writeObject(book);
+						System.out.println("-----"+book.size() + " Added-----");
 					}
-				}catch(Exception e) {
-					e.printStackTrace();
-				}
-				System.out.println("-----Book Saved to file-----");
-				break;
-				
-			case 11:
-				try(FileInputStream fis = new FileInputStream("book.bin")){
-					try(DataInputStream dis = new DataInputStream(fis)){
-						while(true) {
-							Book book1 = new Book();
-							book1.setIsbn(dis.readUTF());
-							book1.setAuthorName(dis.readUTF());
-							book1.setPrice(dis.readDouble());
-							book1.setQuantity(dis.readInt());
-							
-							System.out.println(book1.toString());
-						}
-					}
-				}
-				catch(EOFException e) {
-					
 				}
 				catch(Exception e) {
 					e.printStackTrace();
 				}
 				break;
-
+				
+			case 11:
+				List<Book> list;
+				try(FileInputStream fis = new FileInputStream("book.bin")){
+					try(ObjectInputStream ois = new ObjectInputStream(fis)){
+						list = (List<Book>)ois.readObject();
+						list.forEach(e -> System.out.println(e));
+					}
+				}
+				catch(Exception e) {
+					e.printStackTrace();
+				}
+				break;
 
 			default:
 				break;
